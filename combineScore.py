@@ -1,13 +1,13 @@
 import pandas as pd
 import os
-
-folder=os.listdir("/Users/prochetasen/Downloads/imp_edges_principle12/")
+import sys
+folder=os.listdir("/users/psen/PrincipleAnalysis/EAP/imp_edges_principle"+sys.argv[1]+"/")
 
 edge_dict={}
 
 
 for file in folder:
-	df=pd.read_csv("/Users/prochetasen/Downloads/imp_edges_principle12/"+file,sep=",")
+	df=pd.read_csv("/users/psen/PrincipleAnalysis/EAP/imp_edges_principle"+sys.argv[1]+"/"+file,sep=",")
 	for i in range(len(df)):
 		x=0
 		if df["Unnamed: 0"][i] in edge_dict.keys():
@@ -18,12 +18,13 @@ for file in folder:
 			edge_dict[df["Unnamed: 0"][i]]=df["score"][i]
 
 
-with open("final_edge_principal12.csv","w") as f:
-	for key in edge_dict.keys():
-		f.write(key)
-		f.write("\t")
-		f.write(str(edge_dict[key]))
-		f.write("\n")
+with open("/users/psen/PrincipleAnalysis/final_edge_principal"+sys.argv[1]+".csv","w") as f:
+    f.write("edge\tscore\n")
+    for key in edge_dict.keys():
+        f.write(key)
+        f.write("\t")
+        f.write(str(edge_dict[key]))
+        f.write("\n")
 
 
 f.close()
